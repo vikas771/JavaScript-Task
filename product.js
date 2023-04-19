@@ -123,7 +123,7 @@ const indexData = () => {
   <div class="CardText">
     <h5 class="Main_Heading mt-3">${item.ProductName}</h5>
     <p class="Describe mt-3">${item.description}</p>
-    <a href="product.html" class="btn btn-primary" onClick="onclickviewmore(${item.id})">View More</a>
+    <a href="product.html" class="btn btn-primary" onClick="ViewDetails(${item.id})">View More</a>
 
   </div>
 
@@ -135,7 +135,7 @@ const indexData = () => {
   innerCartData.innerHTML = data;
 };
 
-const onclickviewmore = (id) => {
+const ViewDetails = (id) => {
   console.log(id, "iddd");
   arr = [];
   ProductData.map((data) => {
@@ -148,12 +148,13 @@ const onclickviewmore = (id) => {
 };
 
 const productDetails = () => {
-  let x = document.getElementById("PJ");
+  let productDetailsData = document.getElementById("ProductDetails");
 
-  let pData = localStorage.getItem("productdetails");
-  let parsedData = JSON.parse(pData);
+  let productdata = localStorage.getItem("productdetails");
+  let parsedData = JSON.parse(productdata);
 
-  x.innerHTML = `<div class="row align-items-start" id=${parsedData.id}>
+
+  productDetailsData.innerHTML = `<div class="row align-items-start" id=${parsedData.id}>
     <div class="col-6 mainInnerImg">
     
         <div id="carouselExample" class="carousel slide">
@@ -179,7 +180,7 @@ const productDetails = () => {
                 <span class="visually-hidden">Next</span>
             </button>
         </div>
-        <a href="cart.html"  class="btn btn-success" onClick="Itemadd()">Add To Cart</a>
+        <a  class="btn btn-success" onClick="Itemadd(${parsedData.id})">Add To Cart</a>
         <a href=""  class="btn btn-secondary">Buy Now</a>
 
     </div>
@@ -246,26 +247,82 @@ const productDetails = () => {
     </div>`;
 };
 
+// adding data in localStorage onclick button section started here
+
+const Itemadd = (id) => {
+  console.log(id, "===========");
+  let newItems = localStorage.getItem("newArryCreated");
+  let allitems = JSON.parse(newItems);
+
+  if (allitems == null) {
+    let cartArr = [];
+
+    ProductData.map((cartAllItem) => {
+      if (cartAllItem.id == id) {
+        cartArr.push(cartAllItem);
+        localStorage.setItem("newArryCreated", JSON.stringify(cartArr));
+      }
+    });
+  } else {
+    ProductData.map((cartAllItem) => {
+      if (cartAllItem.id == id) {
+        allitems.push(cartAllItem);
+        localStorage.setItem("newArryCreated", JSON.stringify(allitems));
+      }
+    });
+  }
+};
+
+// adding data in localStorage onclick button section ended here
 
 
+// display all cart product on ui section started here 
 
-const Itemadd = () => {
-      
+const viewAllproduct = () =>{
+
+  const ViewLocalStorageData = document.getElementById("allProductData");
+
+  
+  let viewData = localStorage.getItem("newArryCreated")
+  // console.log("dagta", viewData);
+  let storageData = JSON.parse(viewData)
+  console.log("cardDatAa",storageData);
+
+
+  ViewLocalStorageData.innerHTML = `<div class="row">
+            <div class="col-7">
+                <div class="card mb-3">
+                    <div class="row g-0">
+                      <div class="col-md-4">
+                        <img src="https://cdn.pixabay.com/photo/2017/03/19/20/19/ball-2157465__340.png" class="img-fluid rounded-start" alt="...">
+                         </div>
+                      <div class="col-md-8">
+                        <div class="card-body_text">
+                            <h5>${storageData.discount}</h5>
+                            <h5>₹18,999₹11,51539% Off</h5>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+            </div>
+           
+            <div class="col-5">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">PRICE DETAILS</h5>
+                        <h5>Price (1 item)
+                            ₹18,999</h5>
+                        <h5>Discount − ₹7,484</h5>
+                        <h5>Delivery Charges Free</h5>
+                        <h5>Total Amount ₹11,515</h5>
+                        <h5>You will save ₹7,484 on this order</h5>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+  `
+
 }
-    
-    
-    
-// const Itemadd = () =>{
 
-//     cartData=localStorage.getItem("productdetails")
-//     console.log("New data display here " + cartData);
-//     y=JSON.parse(x)
-
-//     arr = y;
-//     console.log("New data display here " + arr);
-
-//     arr.push(data)
-
-
-//     localStorage.setItem("name",json.stringify(arr))
-// }
+// display all cart product on ui section started here 
