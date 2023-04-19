@@ -148,13 +148,13 @@ const ViewDetails = (id) => {
 };
 
 const productDetails = () => {
-  let productDetailsData = document.getElementById("ProductDetails");
+  let x = document.getElementById("PJ");
 
-  let productdata = localStorage.getItem("productdetails");
-  let parsedData = JSON.parse(productdata);
+  let pData = localStorage.getItem("productdetails");
+  let parsedData = JSON.parse(pData);
 
 
-  productDetailsData.innerHTML = `<div class="row align-items-start" id=${parsedData.id}>
+  x.innerHTML = `<div class="row align-items-start" id=${parsedData.id}>
     <div class="col-6 mainInnerImg">
     
         <div id="carouselExample" class="carousel slide">
@@ -278,28 +278,89 @@ const Itemadd = (id) => {
 
 // display all cart product on ui section started here 
 
+// const viewAllproduct = () =>{
+
+//   const ViewLocalStorageData = document.getElementById("allProductData");
+
+//   console.log("dagta", ViewLocalStorageData);
+
+//   let viewData = localStorage.getItem("newArryCreated")
+//   let storageData = JSON.parse(viewData)
+//   console.log(storageData);
+
+
+//   ViewLocalStorageData.innerHTML = `<div class="row">
+//             <div class="col-7">
+//                 <div class="card mb-3">
+//                     <div class="row g-0">
+//                       <div class="col-md-4">
+//                         <img src="https://cdn.pixabay.com/photo/2017/03/19/20/19/ball-2157465__340.png" class="img-fluid rounded-start" alt="...">
+//                          </div>
+//                       <div class="col-md-8">
+//                         <div class="card-body_text">
+//                             <h5>${storageData.ProductName}</h5>
+//                             <h5>₹18,999₹11,51539% Off</h5>
+//                         </div>
+//                       </div>
+//                     </div>
+//                   </div>
+//             </div>
+           
+//             <div class="col-5">
+//                 <div class="card">
+//                     <div class="card-body">
+//                         <h5 class="card-title">PRICE DETAILS</h5>
+//                         <h5>Price (1 item)
+//                             ₹18,999</h5>
+//                         <h5>Discount − ₹7,484</h5>
+//                         <h5>Delivery Charges Free</h5>
+//                         <h5>Total Amount ₹11,515</h5>
+//                         <h5>You will save ₹7,484 on this order</h5>
+//                     </div>
+//                 </div>
+//             </div>
+//         </div>
+
+//   `
+
+// }
+
+// display all cart product on ui section started here 
+
+
+
+// mine code for practice 
+
+
 const viewAllproduct = () =>{
 
   const ViewLocalStorageData = document.getElementById("allProductData");
 
-  
+  console.log("data", ViewLocalStorageData);
+
   let viewData = localStorage.getItem("newArryCreated")
-  // console.log("dagta", viewData);
   let storageData = JSON.parse(viewData)
-  console.log("cardDatAa",storageData);
+  console.log(storageData);
 
 
-  ViewLocalStorageData.innerHTML = `<div class="row">
+  storageData.map((item)=>{
+
+    console.log("jkhsdjkfjkhsd", item);
+ 
+
+
+  ViewLocalStorageData.innerHTML += `<div class="row">
             <div class="col-7">
                 <div class="card mb-3">
                     <div class="row g-0">
                       <div class="col-md-4">
-                        <img src="https://cdn.pixabay.com/photo/2017/03/19/20/19/ball-2157465__340.png" class="img-fluid rounded-start" alt="...">
+                        <img src="${item.Pimage}" class="img-fluid rounded-start" alt="...">
                          </div>
                       <div class="col-md-8">
-                        <div class="card-body_text">
-                            <h5>${storageData.discount}</h5>
-                            <h5>₹18,999₹11,51539% Off</h5>
+                        <div class="card-body_text mt-3">
+                            <h5 class="mt-2">${item.ProductName}</h5>
+                            <h5>₹${item.discount} off</h5>
+                            <h5>₹${item.price}</h5>
                         </div>
                       </div>
                     </div>
@@ -323,6 +384,9 @@ const viewAllproduct = () =>{
 
   `
 
+   })
+
 }
 
-// display all cart product on ui section started here 
+
+// mine code for practice 
