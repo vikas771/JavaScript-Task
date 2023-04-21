@@ -6,6 +6,7 @@ let ProductData = [
       "The iPhone 13 features a 6.1-inch (155 mm) display with Super Retina XDR OLED technology at a resolution of 2532×1170 pixels and a pixel density of about 460 PPI with a refresh rate of 60 Hz.",
     price: "72600",
     discount: "15%",
+    quantity: 1,
     Pimage:
       "https://d2d22nphq0yz8t.cloudfront.net/88e6cc4b-eaa1-4053-af65-563d88ba8b26/https://media.croma.com/image/upload/v1664009609/Croma%20Assets/Communication/Mobiles/Images/243463_0_qtsxpd.png/mxw_640,f_auto",
     PImageFirst:
@@ -26,6 +27,7 @@ let ProductData = [
       "The iPhone 14 looks identical to the iPhone 13, but there's a new 6.7-inch model called the iPhone 14 Plus. Under-the-hood improvements include 6GB of RAM, a 5-core GPU, Bluetooth 5.3, and multiple camera updates.",
     price: "106999",
     discount: "25%",
+    quantity: 1,
     Pimage:
       "https://cdn.vox-cdn.com/thumbor/cPeVH-m_b9pScRXzpCBW-nAHSfw=/0x0:2032x1355/1400x1400/filters:focal(1016x678:1017x679)/cdn.vox-cdn.com/uploads/chorus_asset/file/22863258/akrales_210917_4760_0175.jpg",
     PImageFirst:
@@ -46,6 +48,7 @@ let ProductData = [
       "The Xiaomi 12 Pro is a solid contender in the premium smartphone segment. Its design feels premium and is made from glass and metal, but the phone lacks an official IP rating which may be a deal breaker for some.",
     price: "106999",
     discount: "35%",
+    quantity: 1,
     Pimage:
       "https://i.gadgets360cdn.com/products/large/xiaomi-12-pro-800x800-1640703618.jpg",
 
@@ -64,6 +67,7 @@ let ProductData = [
       "The Mi Watch measures the daily resting heart rate by sampling heart rate data multiple times a day and combining it with activity data",
     price: "6500",
     discount: "55%",
+    quantity: 1,
     Pimage:
       "https://i01.appmifile.com/webfile/globalimg/in/cms/F35A5694-B3FF-6ABF-BAF8-F1C749509D5B.jpg",
 
@@ -82,6 +86,7 @@ let ProductData = [
       "Movable, detachable narrow concentrator for desired styling · Two speed/heat setting · Foldable comfigrip handle · Cord guard with handing loop · ",
     price: "2999",
     discount: "5%",
+    quantity: 1,
     Pimage:
       "https://www.suryaelectronics.in/CommonImageHandler/ImageHandler.ashx?imagepath=~/img/Product/Main/PhilipsGroomingandPersonalcareDCDryer11.jpg&width=1080",
 
@@ -100,6 +105,7 @@ let ProductData = [
       "Established in 1956 in Ludhiana, Hero Cycles started with manufacturing cycle components slowly paving its way onto becoming the one of the 'Best Cycle Brand' in India.",
     price: "9999",
     discount: "35%",
+    quantity: 1,
     Pimage:
       "https://cdn.shopify.com/s/files/1/0524/1346/4726/products/Desktop-1.jpg?v=1641202840",
 
@@ -113,7 +119,7 @@ let ProductData = [
   },
 ];
 
-const indexData = () => {
+const indexData=() => {
   data = "";
   ProductData.map((item) => {
     console.log(item, "items");
@@ -152,7 +158,6 @@ const productDetails = () => {
 
   let pData = localStorage.getItem("productdetails");
   let parsedData = JSON.parse(pData);
-
 
   x.innerHTML = `<div class="row align-items-start" id=${parsedData.id}>
     <div class="col-6 mainInnerImg">
@@ -250,9 +255,10 @@ const productDetails = () => {
 // adding data in localStorage onclick button section started here
 
 const Itemadd = (id) => {
-  console.log(id, "===========");
   let newItems = localStorage.getItem("newArryCreated");
   let allitems = JSON.parse(newItems);
+  let count = 0;
+  console.log(allitems);
 
   if (allitems == null) {
     let cartArr = [];
@@ -261,13 +267,28 @@ const Itemadd = (id) => {
       if (cartAllItem.id == id) {
         cartArr.push(cartAllItem);
         localStorage.setItem("newArryCreated", JSON.stringify(cartArr));
+        console.log("new arry created and value added");
+        alert("Item addes in Cart")
       }
     });
   } else {
-    ProductData.map((cartAllItem) => {
-      if (cartAllItem.id == id) {
-        allitems.push(cartAllItem);
+    allitems.map((cartitem) => {
+      if (cartitem.id == id) {
+        count++;
+      }
+    });
+  }
+
+  if (count == 1) {
+    alert("This product is already added in your cart , please go and check your cart page......")   
+  }
+
+  if (count == 0) {
+    ProductData.map((Item) => {
+      if (Item.id == id) {
+        allitems.push(Item);
         localStorage.setItem("newArryCreated", JSON.stringify(allitems));
+        alert("Item addes in Cart")
       }
     });
   }
@@ -275,83 +296,19 @@ const Itemadd = (id) => {
 
 // adding data in localStorage onclick button section ended here
 
+// display all cart product on ui section started here
 
-// display all cart product on ui section started here 
-
-// const viewAllproduct = () =>{
-
-//   const ViewLocalStorageData = document.getElementById("allProductData");
-
-//   console.log("dagta", ViewLocalStorageData);
-
-//   let viewData = localStorage.getItem("newArryCreated")
-//   let storageData = JSON.parse(viewData)
-//   console.log(storageData);
-
-
-//   ViewLocalStorageData.innerHTML = `<div class="row">
-//             <div class="col-7">
-//                 <div class="card mb-3">
-//                     <div class="row g-0">
-//                       <div class="col-md-4">
-//                         <img src="https://cdn.pixabay.com/photo/2017/03/19/20/19/ball-2157465__340.png" class="img-fluid rounded-start" alt="...">
-//                          </div>
-//                       <div class="col-md-8">
-//                         <div class="card-body_text">
-//                             <h5>${storageData.ProductName}</h5>
-//                             <h5>₹18,999₹11,51539% Off</h5>
-//                         </div>
-//                       </div>
-//                     </div>
-//                   </div>
-//             </div>
-           
-//             <div class="col-5">
-//                 <div class="card">
-//                     <div class="card-body">
-//                         <h5 class="card-title">PRICE DETAILS</h5>
-//                         <h5>Price (1 item)
-//                             ₹18,999</h5>
-//                         <h5>Discount − ₹7,484</h5>
-//                         <h5>Delivery Charges Free</h5>
-//                         <h5>Total Amount ₹11,515</h5>
-//                         <h5>You will save ₹7,484 on this order</h5>
-//                     </div>
-//                 </div>
-//             </div>
-//         </div>
-
-//   `
-
-// }
-
-// display all cart product on ui section started here 
-
-
-
-// mine code for practice 
-
-
-const viewAllproduct = () =>{
-
+const viewAllproduct=() => {
   const ViewLocalStorageData = document.getElementById("allProductData");
+  
+  let viewData = localStorage.getItem("newArryCreated");
+  let storageData = JSON.parse(viewData);
 
-  console.log("data", ViewLocalStorageData);
+let x=""
 
-  let viewData = localStorage.getItem("newArryCreated")
-  let storageData = JSON.parse(viewData)
-  console.log(storageData);
-
-
-  storageData.map((item)=>{
-
-    console.log("jkhsdjkfjkhsd", item);
- 
-
-
-  ViewLocalStorageData.innerHTML += `<div class="row">
-            <div class="col-7">
-                <div class="card mb-3">
+  storageData.map((item) => {
+   x += `
+              <div class="card mb-3">
                     <div class="row g-0">
                       <div class="col-md-4">
                         <img src="${item.Pimage}" class="img-fluid rounded-start" alt="...">
@@ -361,32 +318,129 @@ const viewAllproduct = () =>{
                             <h5 class="mt-2">${item.ProductName}</h5>
                             <h5>₹${item.discount} off</h5>
                             <h5>₹${item.price}</h5>
+                            <div class="mt-5 btnSet">
+                            <button type="button" onclick="decrement(${item.id})" class="btn btn-danger me-4"> - </button>
+                            <h2 id="btnData">${item.quantity}</h2>
+                            <button type="button" onclick="increment(${item.id})" class="btn btn-secondary ms-4"> + </button>
+                            </div>
                         </div>
                       </div>
                     </div>
                   </div>
-            </div>
-           
-            <div class="col-5">
-                <div class="card">
-                    <div class="card-body">
-                        <h5 class="card-title">PRICE DETAILS</h5>
-                        <h5>Price (1 item)
-                            ₹18,999</h5>
-                        <h5>Discount − ₹7,484</h5>
-                        <h5>Delivery Charges Free</h5>
-                        <h5>Total Amount ₹11,515</h5>
-                        <h5>You will save ₹7,484 on this order</h5>
-                    </div>
-                </div>
-            </div>
-        </div>
+              </div>
+                    `;
+  });
+  ViewLocalStorageData.innerHTML=x;
+  console.log("increment called")
+};
 
-  `
+// display all cart product on ui section started here
 
-   })
+// added cart quantity number display function section started here
+
+const coutOfCartItem = () => {
+  let newItems = localStorage.getItem("newArryCreated");
+  // console.log("=======", JSON.parse(newItems).length);
+  // alert(`${newItems} hello `);
+  return newItems.length;
+};
+coutOfCartItem();
+
+// added cart quantity number display function section ended here
+
+// button incremet and decrement logic start here
+
+let btnValue = 1;
+// let newQuantity = localStorage.setItem("quantity" ,btnValue )
+
+// console.log("btn quantity is ", newQuantity);
+
+// document.getElementById("#btnData").innerText = btnValue;
+
+
+
+
+function increment(id) {
+  let newVal = localStorage.getItem("newArryCreated");
+  let upDateVal = JSON.parse(newVal);
+
+  console.log("local value", upDateVal);
+
+  upDateVal.map((item) => {
+    if(item.id==id)
+    {
+    if (item.quantity >= 10) {
+      alert("can't go more than 10");
+    } else {
+        console.log("id is here ", id);
+        item.quantity += 1;
+        console.log(item.quantity);
+        localStorage.setItem("newArryCreated", JSON.stringify(upDateVal));
+     
+      }
+    }
+  });
+  
+  cartItemAnsdPriceCount();
+  viewAllproduct();
+}
+
+function decrement(id) {
+  let updateVal = localStorage.getItem("newArryCreated");
+  let valueUpdated = JSON.parse(updateVal);
+
+  valueUpdated.map((item) => {
+    if(item.id==id)
+    {
+
+      if (item.quantity <= 1) {
+        alert("can't go down than 1");
+    } else {
+        item.quantity -= 1;
+        console.log("quantity of products",item.quantity);
+        localStorage.setItem("newArryCreated", JSON.stringify(valueUpdated));
+    }
+    }
+  });
+
+
+  cartItemAnsdPriceCount();
+  viewAllproduct();
 
 }
 
+// button incremet and decrement logic ended here
 
-// mine code for practice 
+// Total price of product which we  have added in our cart section started here
+
+const cartItemAnsdPriceCount = async () => {
+  const getTotalVal = localStorage.getItem("newArryCreated");
+  const totalarrayValue = JSON.parse(getTotalVal);
+  let totalCartAmount = 0;
+  const itemCountincart = totalarrayValue.length;
+  totalarrayValue.map((item) => {
+    const totalprice = item.price * item.quantity;
+
+    totalCartAmount += totalprice;
+  });
+
+  const cartCount = document.getElementById("cartCount");
+  cartCount.innerHTML = itemCountincart;
+
+  const cartTotalAmount = document.getElementById("cartTotalAmount");
+  cartTotalAmount.innerHTML = totalCartAmount;
+
+  const afterDiscountTotalPrice = document.getElementById(
+    "afterDiscountTotalPrice"
+  );
+  afterDiscountTotalPrice.innerHTML = totalCartAmount - 1200;
+
+  return {
+    totalCartAmount,
+    itemCountincart,
+  };
+};
+
+cartItemAnsdPriceCount();
+
+// Total price of product which we  have added in our cart section ended here

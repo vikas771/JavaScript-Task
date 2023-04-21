@@ -33,3 +33,24 @@
     height: 10px;
     scroll-behavior: auto;
 }
+
+.btnSet{
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+}
+
+.countnum{
+    font-size: 16px;
+    position: absolute;
+    top: 41px;
+    color: red;
+}
+
+.disCountCl{
+    background-color: #3fbb65de;
+}
+.totalColor{
+    background-color: #d64c4c;
+    color: white;
+}
